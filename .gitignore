@@ -1,1 +1,12 @@
 img-mgr.tf/.terraform-version
+img-mgr.tf/.terraform.lock.hcl
+img-mgr.tf/.terraform/environment
+img-mgr.tf/.terraform/terraform.tfstate
+img-mgr.tf/.terraform/modules/modules.json
+img-mgr.tf/.terraform/providers/registry.terraform.io/hashicorp/aws/3.62.0/linux_amd64/terraform-provider-aws_v3.62.0_x5
+vpc.tf/.terraform-version
+vpc.tf/.terraform.lock.hcl
+vpc.tf/.terraform/environment
+vpc.tf/.terraform/terraform.tfstate
+vpc.tf/.terraform/modules/modules.json
+vpc.tf/.terraform/providers/registry.terraform.io/hashicorp/aws/3.62.0/linux_amd64/terraform-provider-aws_v3.62.0_x5
