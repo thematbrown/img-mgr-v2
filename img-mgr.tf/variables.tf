@@ -15,3 +15,11 @@ variable "instance_type" {
 variable "bucket" {
   default = "matt1069-img-mgr-tf-bucket-23549060345"
 }
+
+variable "environment" {
+  
+}
+
+variable "customer" {
+  default = "matt1069"
+}
