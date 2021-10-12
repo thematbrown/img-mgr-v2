@@ -16,18 +16,22 @@ data "terraform_remote_state" "vpc-ref" {
   config = {
     bucket = "matt1069-img-mgr-vpc-tf-stat-terraformstatebucket-yli8s8b780v4"
     region = "us-east-1"
-    key = "env:/vpc/vpc.tfstate"
+    key = "env:/common/vpc.tfstate"
   }
 }
 
 resource "aws_s3_bucket" "imgr-mgr-bucket" {
-  bucket = "${var.bucket}"
+  bucket = "${var.customer}-${var.environment}-img-mgr-bucket-54234"
   acl = "private"
+
+  tags = {
+    Name = "${var.environment}-tf-bucket"
+  }
 }
 
 
 resource "aws_iam_role" "img-mgr-iam-role" {
-  name = "img-mgr-role-v2"
+  name = "${var.environment}-img-mgr-role-v2"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -46,7 +50,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "img-mgr-iam-policy" {
-  name = "img-mgr-server-policy"
+  name = "${var.environment}-img-mgr-server-policy"
   role = aws_iam_role.img-mgr-iam-role.id
 
   policy = <<EOF
@@ -72,7 +76,7 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "img-mgr-instance-profile" {
-  name = "img-mgr-instance-profilev2"
+  name = "${var.environment}-img-mgr-instance-profilev2"
   role = aws_iam_role.img-mgr-iam-role.name
 }
 
@@ -83,7 +87,7 @@ resource "aws_iam_policy_attachment" "iam-attach" {
 }
 
 resource "aws_security_group" "LbSg" {
-  name        = "lb_sg_80"
+  name        = "${var.environment}-lb_sg_80"
   description = "Allow http,ssh,icmp"
   vpc_id = data.terraform_remote_state.vpc-ref.outputs.vpc_id
 
@@ -108,7 +112,7 @@ resource "aws_security_group" "LbSg" {
 }
 
 resource "aws_security_group" "serverSG" {
-  name        = "server_sg"
+  name        = "${var.environment}-server_sg"
   description = "Allow http,ssh,icmp"
   vpc_id      = data.terraform_remote_state.vpc-ref.outputs.vpc_id
 
@@ -135,7 +139,7 @@ resource "aws_security_group" "serverSG" {
 }
 
 resource "aws_elb" "img-mgr-lb" {
-  name               = "img-mgr-lb"
+  name               = "${var.environment}-img-mgr-lb"
   subnets            = data.terraform_remote_state.vpc-ref.outputs.public_subnets
 
  listener {
@@ -165,7 +169,7 @@ resource "aws_elb" "img-mgr-lb" {
 }
 
 resource "aws_launch_template" "img-mgr-launch-temp" {
-  name = "TOP-keys"
+  name = "${var.environment}-img-mgr-template"
   image_id = "${var.ami}"
   instance_initiated_shutdown_behavior = "terminate"
   instance_type = "t2.small"
