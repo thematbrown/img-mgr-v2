@@ -16,7 +16,7 @@ data "terraform_remote_state" "vpc-ref" {
   config = {
     bucket = "matt1069-img-mgr-vpc-tf-stat-terraformstatebucket-yli8s8b780v4"
     region = "us-east-1"
-    key = "env:/vpc/vpc.tfstate"
+    key = "env:/common/vpc.tfstate"
   }
 }
 
