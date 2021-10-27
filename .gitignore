@@ -10,3 +10,5 @@ vpc.tf/.terraform/environment
 vpc.tf/.terraform/terraform.tfstate
 vpc.tf/.terraform/modules/modules.json
 vpc.tf/.terraform/providers/registry.terraform.io/hashicorp/aws/3.62.0/linux_amd64/terraform-provider-aws_v3.62.0_x5
+img-mgr.tf/.terraform/providers/registry.terraform.io/hashicorp/aws/3.63.0/linux_amd64/terraform-provider-aws_v3.63.0_x5
+vpc.tf/.terraform/providers/registry.terraform.io/hashicorp/aws/3.63.0/linux_amd64/terraform-provider-aws_v3.63.0_x5
